@@ -1,7 +1,8 @@
-import { mapStateToProps } from "./Profile";
 import React, { useEffect } from "react";
-import agent from "../../agent";
 import { connect } from "react-redux";
+
+import { mapStateToProps } from ".";
+import agent from "../../agent";
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,

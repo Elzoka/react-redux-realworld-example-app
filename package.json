@@ -29,7 +29,7 @@
   "scripts": {
     "start": "cross-env PORT=4100 react-scripts start",
     "build": "react-scripts build",
-    "test": "cross-env PORT=4100 react-scripts test --env=jsdom",
+    "test": "echo \"no test setup added yet\"",
     "eject": "react-scripts eject",
     "format": "prettier \"src/**/*.{js,jsx}\" --write",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet"
@@ -42,8 +42,8 @@
   "lint-staged": {
     "*.js": [
       "npm run format",
-      "npm run lint",
-      "npm run test"
+      "git add .",
+      "npm run lint"
     ]
   },
   "browserslist": {

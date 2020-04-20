@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import agent from "../../agent";
 import { connect } from "react-redux";
+
+import agent from "../../agent";
 import {
   FOLLOW_USER,
   UNFOLLOW_USER,

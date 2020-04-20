@@ -1,34 +1,21 @@
-import agent from "../agent";
-import Header from "./Header";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { APP_LOAD, REDIRECT } from "../constants/actionTypes";
-import { Route, Switch } from "react-router-dom";
-import Article from "../components/Article";
-import Editor from "../components/Editor";
-import Home from "../components/Home";
-import Login from "../components/Login";
-import Profile from "./Profile/Profile";
-import ProfileFavorites from "./Profile/ProfileFavorites";
-import Register from "../components/Register";
-import Settings from "../components/Settings";
-import { store } from "../store";
 import { push } from "react-router-redux";
+import { Route, Switch } from "react-router-dom";
 
-const mapStateToProps = (state) => {
-  return {
-    appLoaded: state.common.appLoaded,
-    appName: state.common.appName,
-    currentUser: state.common.currentUser,
-    redirectTo: state.common.redirectTo,
-  };
-};
+import Article from "./Article";
+import Editor from "./Editor";
+import Home from "./Home";
+import Header from "./Header";
+import Login from "./Login";
+import Register from "./Register";
+import Settings from "./Settings";
+import Profile from "./Profile";
+import ProfileFavorites from "./Profile/ProfileFavorites";
 
-const mapDispatchToProps = (dispatch) => ({
-  onLoad: (payload, token) =>
-    dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
-  onRedirect: () => dispatch({ type: REDIRECT }),
-});
+import { APP_LOAD, REDIRECT } from "../constants/actionTypes";
+import { store } from "../store";
+import agent from "../agent";
 
 const App = (props) => {
   const { redirectTo } = props;
@@ -73,6 +60,21 @@ const App = (props) => {
     </div>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    appLoaded: state.common.appLoaded,
+    appName: state.common.appName,
+    currentUser: state.common.currentUser,
+    redirectTo: state.common.redirectTo,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoad: (payload, token) =>
+    dispatch({ type: APP_LOAD, payload, token, skipTracking: true }),
+  onRedirect: () => dispatch({ type: REDIRECT }),
+});
 
 // App.contextTypes = {
 //   router: PropTypes.object.isRequired

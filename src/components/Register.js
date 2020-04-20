@@ -1,29 +1,14 @@
-import { Link } from "react-router-dom";
-import ListErrors from "./ListErrors";
 import React, { useEffect } from "react";
-import agent from "../agent";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+
+import ListErrors from "./ListErrors";
+import agent from "../agent";
 import {
   UPDATE_FIELD_AUTH,
   REGISTER,
   REGISTER_PAGE_UNLOADED,
 } from "../constants/actionTypes";
-
-const mapStateToProps = (state) => ({ ...state.auth });
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeEmail: (value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: "email", value }),
-  onChangePassword: (value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: "password", value }),
-  onChangeUsername: (value) =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: "username", value }),
-  onSubmit: (username, email, password) => {
-    const payload = agent.Auth.register(username, email, password);
-    dispatch({ type: REGISTER, payload });
-  },
-  onUnload: () => dispatch({ type: REGISTER_PAGE_UNLOADED }),
-});
 
 const Register = (props) => {
   const changeEmail = (ev) => props.onChangeEmail(ev.target.value);
@@ -101,5 +86,21 @@ const Register = (props) => {
     </div>
   );
 };
+
+const mapStateToProps = (state) => ({ ...state.auth });
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeEmail: (value) =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: "email", value }),
+  onChangePassword: (value) =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: "password", value }),
+  onChangeUsername: (value) =>
+    dispatch({ type: UPDATE_FIELD_AUTH, key: "username", value }),
+  onSubmit: (username, email, password) => {
+    const payload = agent.Auth.register(username, email, password);
+    dispatch({ type: REGISTER, payload });
+  },
+  onUnload: () => dispatch({ type: REGISTER_PAGE_UNLOADED }),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

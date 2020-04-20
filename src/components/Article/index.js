@@ -1,23 +1,14 @@
-import ArticleMeta from "./ArticleMeta";
-import CommentContainer from "./CommentContainer";
 import React, { useEffect } from "react";
-import agent from "../../agent";
 import { connect } from "react-redux";
 import marked from "marked";
+
+import ArticleMeta from "./ArticleMeta";
+import CommentContainer from "./CommentContainer";
+import agent from "../../agent";
 import {
   ARTICLE_PAGE_LOADED,
   ARTICLE_PAGE_UNLOADED,
 } from "../../constants/actionTypes";
-
-const mapStateToProps = (state) => ({
-  ...state.article,
-  currentUser: state.common.currentUser,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoad: (payload) => dispatch({ type: ARTICLE_PAGE_LOADED, payload }),
-  onUnload: () => dispatch({ type: ARTICLE_PAGE_UNLOADED }),
-});
 
 const Article = (props) => {
   useEffect(() => {
@@ -83,5 +74,15 @@ const Article = (props) => {
     </div>
   );
 };
+
+const mapStateToProps = (state) => ({
+  ...state.article,
+  currentUser: state.common.currentUser,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoad: (payload) => dispatch({ type: ARTICLE_PAGE_LOADED, payload }),
+  onUnload: () => dispatch({ type: ARTICLE_PAGE_UNLOADED }),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Article);

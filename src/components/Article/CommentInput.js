@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import agent from "../../agent";
 import { connect } from "react-redux";
-import { ADD_COMMENT } from "../../constants/actionTypes";
 
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (payload) => dispatch({ type: ADD_COMMENT, payload }),
-});
+import agent from "../../agent";
+import { ADD_COMMENT } from "../../constants/actionTypes";
 
 const CommentInput = (props) => {
   const [body, setBody] = useState("");
@@ -45,5 +42,9 @@ const CommentInput = (props) => {
     </form>
   );
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (payload) => dispatch({ type: ADD_COMMENT, payload }),
+});
 
 export default connect(() => ({}), mapDispatchToProps)(CommentInput);
