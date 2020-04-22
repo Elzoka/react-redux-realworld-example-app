@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 
 import Article from "./Article";
 import Editor from "./Editor";
@@ -14,18 +13,24 @@ import Profile from "./Profile";
 import ProfileFavorites from "./Profile/ProfileFavorites";
 
 import { APP_LOAD, REDIRECT } from "../constants/actionTypes";
-import { store } from "../store";
 import agent from "../agent";
 
 const App = (props) => {
-  const { redirectTo } = props;
+  const {
+    redirectTo,
+    history,
+    onRedirect,
+    appLoaded,
+    appName,
+    currentUser,
+  } = props;
+
   useEffect(() => {
     if (redirectTo) {
-      // this.context.router.replace(nextProps.redirectTo);
-      store.dispatch(push(props.redirectTo));
-      props.onRedirect();
+      history.push(props.redirectTo);
+      onRedirect();
     }
-  });
+  }, [redirectTo]);
 
   useEffect(() => {
     const token = window.localStorage.getItem("jwt");
@@ -36,10 +41,10 @@ const App = (props) => {
     props.onLoad(token ? agent.Auth.current() : null, token);
   }, []);
 
-  if (props.appLoaded) {
+  if (appLoaded) {
     return (
       <div>
-        <Header appName={props.appName} currentUser={props.currentUser} />
+        <Header appName={appName} currentUser={currentUser} />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
@@ -56,7 +61,7 @@ const App = (props) => {
   }
   return (
     <div>
-      <Header appName={props.appName} currentUser={props.currentUser} />
+      <Header appName={appName} currentUser={currentUser} />
     </div>
   );
 };
@@ -76,8 +81,4 @@ const mapDispatchToProps = (dispatch) => ({
   onRedirect: () => dispatch({ type: REDIRECT }),
 });
 
-// App.contextTypes = {
-//   router: PropTypes.object.isRequired
-// };
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
